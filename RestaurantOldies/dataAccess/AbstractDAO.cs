@@ -5,14 +5,13 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using System.Reflection;
 using MySql.Data.MySqlClient;
 
 namespace RestaurantOldies
 {
     public class AbstractDAO<T>
     {
-        private static DBConnect dBConnect;
+        protected static DBConnect dBConnect;
 
         private Type type;
 
@@ -20,7 +19,7 @@ namespace RestaurantOldies
             type = typeof(T);
         }
 
-        public void add (T entity)
+        public void Add(T entity)
         {
             Console.WriteLine("Add operation:\n");
             try
@@ -65,7 +64,7 @@ namespace RestaurantOldies
             }
         }
 
-        public void update(T entity)
+        public void Update(T entity)
         {
             Console.WriteLine("Update operation:\n");
             try
@@ -109,6 +108,35 @@ namespace RestaurantOldies
             }
             finally
             { 
+                dBConnect.Close();
+            }
+        }
+
+        public void Delete(T entity)
+        {
+            Console.WriteLine("Delete operation:\n");
+            try
+            {
+                dBConnect = new DBConnect();
+
+                PropertyInfo[] properties = typeof(T).GetProperties();
+
+                string query = "delete from `" + type.Name.ToLower() + "` where id = @id";
+                Console.WriteLine(query + "\n");
+
+                dBConnect.Open();
+                MySqlCommand command = new MySqlCommand(query, dBConnect.connection);
+
+                command.Parameters.AddWithValue("@id", properties[0].GetValue(entity));
+
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
                 dBConnect.Close();
             }
         }

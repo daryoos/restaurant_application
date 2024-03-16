@@ -17,15 +17,9 @@ namespace RestaurantOldies
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
-
-            UserDAO userDAO = new UserDAO();
-            //userDAO.add(new User("daf", "dfsae", "adfaf", false));
-
-            User user = new User(1, "sss", "sss", "sss", 0);
-            userDAO.update(user);
+            //Application.EnableVisualStyles();
+            //Application.SetCompatibleTextRenderingDefault(false);
+            //Application.Run(new Form1());
         }
     }
 }

@@ -12,5 +12,20 @@ namespace RestaurantOldies.model
         public string name { get; set; }
         public int price { get; set; }
         public int quantity { get; set; }
+
+        public Item(string name, int price, int quantity)
+        {
+            this.name = name;
+            this.price = price;
+            this.quantity = quantity;
+        }
+
+        public Item(int id, string name, int price, int quantity)
+        {
+            this.id = id;
+            this.name = name;
+            this.price = price;
+            this.quantity = quantity;
+        }
     }
 }
