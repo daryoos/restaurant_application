@@ -19,7 +19,7 @@ namespace RestaurantOldies
             type = typeof(T);
         }
 
-        public void Add(T entity)
+        public virtual void Add(T entity)
         {
             Console.WriteLine("Add operation:\n");
             try
@@ -64,7 +64,7 @@ namespace RestaurantOldies
             }
         }
 
-        public void Update(T entity)
+        public virtual void Update(T entity)
         {
             Console.WriteLine("Update operation:\n");
             try

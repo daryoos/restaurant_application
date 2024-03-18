@@ -11,23 +11,22 @@ namespace RestaurantOldies.model
         public int id { get; set; }
         public float totalCost { get; set; }
         public string status { get; set; }
-        public DateTime date { get; set; }
+        public string date { get; set; }
 
         public Bill()
         {
             this.totalCost = 0;
             this.status = "new order";
-            this.date = DateTime.Now;
         }
 
-        public Bill(float totalCost, string status, DateTime date)
+        public Bill(float totalCost, string status, string date)
         {
             this.totalCost = totalCost;
             this.status = status;
             this.date = date;
         }
 
-        public Bill(int id, float totalCost, string status, DateTime date)
+        public Bill(int id, float totalCost, string status, string date)
         {
             this.id = id;
             this.totalCost = totalCost;

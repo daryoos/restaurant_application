@@ -39,3 +39,7 @@ C:\Users\dariu\source\repos\ps\RestaurantOldies\RestaurantOldies\obj\Debug\Resta
 C:\Users\dariu\source\repos\ps\RestaurantOldies\RestaurantOldies\obj\Debug\RestaurantOldies.csproj.CopyComplete
 C:\Users\dariu\source\repos\ps\RestaurantOldies\RestaurantOldies\obj\Debug\RestaurantOldies.exe
 C:\Users\dariu\source\repos\ps\RestaurantOldies\RestaurantOldies\obj\Debug\RestaurantOldies.pdb
+C:\Users\dariu\source\repos\ps\RestaurantOldies\RestaurantOldies\obj\Debug\RestaurantOldies.view.LoginView.resources
+C:\Users\dariu\source\repos\ps\RestaurantOldies\RestaurantOldies\obj\Debug\RestaurantOldies.view.AdminView.resources
+C:\Users\dariu\source\repos\ps\RestaurantOldies\RestaurantOldies\obj\Debug\RestaurantOldies.view.EmployeeView.resources
+C:\Users\dariu\source\repos\ps\RestaurantOldies\RestaurantOldies\obj\Debug\RestaurantOldies.view.BillItemView.resources

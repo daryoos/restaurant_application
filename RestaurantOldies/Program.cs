@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 using RestaurantOldies.model;
+using RestaurantOldies.view;
 
 namespace RestaurantOldies
 {
@@ -17,9 +18,56 @@ namespace RestaurantOldies
         [STAThread]
         static void Main()
         {
-            //Application.EnableVisualStyles();
-            //Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new Form1());
+            
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new LoginView());
+            //Application.Run(new AdminView());
+            //Application.Run(new EmployeeView());
+            
+
+            /*
+            BillDAO billDAO = new BillDAO();
+            List<Bill> bills = billDAO.GetAll();
+            foreach (Bill bill in bills )
+            {
+                Console.WriteLine(bill.id);
+            }
+            */
+
+            /*
+            BillDAO billDAO = new BillDAO();
+            Bill bill = billDAO.GetById(1);
+            Console.WriteLine(bill.totalCost);
+            bill.totalCost += 10;
+            Console.WriteLine(bill.totalCost);
+            billDAO.Update(bill);
+            bill = billDAO.GetById(1);
+            Console.WriteLine(bill.totalCost);
+            */
+
+            /*
+            User user = new User("d", "d", "d", 0);
+            UserDAO userDAO = new UserDAO();
+            userDAO.Add(user);
+            */
+
+            /*
+            Item item = new Item("ddd", 10, 2);
+            ItemDAO itemDAO = new ItemDAO();
+            itemDAO.Add(item);
+            */
+
+            /*
+            UserDAO userDAO = new UserDAO();
+            User user1 = userDAO.GetById(1);
+            User user = userDAO.GetByUsername("sss");
+            List<User> users = userDAO.GetAll();
+            foreach (User user in users)
+            {
+                Console.WriteLine(user.id);
+            }
+            */
         }
     }
 }

@@ -10,21 +10,53 @@ namespace RestaurantOldies.dataAccess
 {
     public class BillDAO : AbstractDAO<Bill>
     {
+        public override void Update(Bill bill)
+        {
+            StringBuilder query = new StringBuilder("update `bill` set `totalCost` = ");
+            query.Append("'" + bill.totalCost + "', ");
+            query.Append("`status` = ");
+            query.Append("'" + bill.status + "'");
+            query.Append("where `id` = ");
+            query.Append("'" + bill.id + "'");
+
+            dBConnect.Open();
+            MySqlCommand command = new MySqlCommand(query.ToString(), dBConnect.connection);
+            command.ExecuteNonQuery();
+        }
+
+        public override void Add(Bill bill)
+        {
+            if (bill.date != null)
+            {
+                base.Add(bill);
+            }
+            string query = "insert into `bill` (`totalCost`, `status`) values (@totalCost, @status)";
+
+            dBConnect.Open();
+            MySqlCommand command = new MySqlCommand(query, dBConnect.connection);
+            command.Parameters.AddWithValue("@totalCost", bill.totalCost);
+            command.Parameters.AddWithValue("@status", bill.status);
+            command.ExecuteNonQuery();
+        }
         public Bill GetById(int id)
         {
             try
             {
                 dBConnect = new DBConnect();
-                string query = "select * from `" + typeof(Item).Name.ToLower() + "` where id = @id";
+                string query = "select * from `" + typeof(Bill).Name.ToLower() + "` where `id` = @id";
+                Console.WriteLine(query);
 
                 dBConnect.Open();
                 MySqlCommand command = new MySqlCommand(query, dBConnect.connection);
+                command.Parameters.AddWithValue("@id", id);
                 MySqlDataReader reader = command.ExecuteReader();
 
-                command.Parameters.AddWithValue("@id", id);
+                if (reader.Read())
+                {
+                    Bill bill = new Bill(reader.GetInt32(0), reader.GetFloat(1), reader.GetString(2), reader.GetMySqlDateTime(3).ToString());
+                    return bill;
+                }
 
-                Bill bill = new Bill(reader.GetInt32(0), reader.GetString(1), reader.GetDateTime(2));
-                return bill;
             }
             catch (Exception ex)
             {
@@ -42,7 +74,7 @@ namespace RestaurantOldies.dataAccess
             try
             {
                 dBConnect = new DBConnect();
-                string query = "select * from `" + typeof(Item).Name.ToLower() + "`";
+                string query = "select * from `" + typeof(Bill).Name.ToLower() + "`";
 
                 dBConnect.Open();
                 MySqlCommand command = new MySqlCommand(query, dBConnect.connection);
@@ -51,7 +83,7 @@ namespace RestaurantOldies.dataAccess
                 List<Bill> bills = new List<Bill>();
                 while (reader.Read())
                 {
-                    Bill bill = new Bill(reader.GetInt32(0), reader.GetString(1), reader.GetDateTime(2));
+                    Bill bill = new Bill(reader.GetInt32(0), reader.GetFloat(1), reader.GetString(2), reader.GetMySqlDateTime(3).ToString());
                     bills.Add(bill);
                 }
                 return bills;
@@ -67,5 +99,4 @@ namespace RestaurantOldies.dataAccess
             return null;
         }
     }
-}
 }

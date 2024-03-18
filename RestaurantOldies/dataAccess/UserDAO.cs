@@ -3,6 +3,7 @@ using RestaurantOldies.model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,16 +17,20 @@ namespace RestaurantOldies.dataAccess
             try
             {
                 dBConnect = new DBConnect();
-                string query = "select * from `" + typeof(Item).Name.ToLower() + "` where id = @id";
+                string query = "select * from `" + typeof(User).Name.ToLower() + "` where `id` = @id";
+                Console.WriteLine(query);
 
                 dBConnect.Open();
                 MySqlCommand command = new MySqlCommand(query, dBConnect.connection);
+                command.Parameters.AddWithValue("@id", id);
                 MySqlDataReader reader = command.ExecuteReader();
 
-                command.Parameters.AddWithValue("@id", id);
-
-                User user = new User(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetInt32(4));
-                return user;
+                if (reader.Read())
+                {
+                    User user = new User(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetInt32(4));
+                    return user;
+                }
+                
             }
             catch (Exception ex)
             {
@@ -43,16 +48,18 @@ namespace RestaurantOldies.dataAccess
             try
             {
                 dBConnect = new DBConnect();
-                string query = "select * from `" + typeof(Item).Name.ToLower() + "` where username = @username";
+                string query = "select * from `" + typeof(User).Name.ToLower() + "` where `username` = @username";
 
                 dBConnect.Open();
                 MySqlCommand command = new MySqlCommand(query, dBConnect.connection);
+                command.Parameters.AddWithValue("@username", username);
                 MySqlDataReader reader = command.ExecuteReader();
 
-                command.Parameters.AddWithValue("@username", username);
-
-                User user = new User(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetInt32(4));
-                return user;
+                if (reader.Read())
+                {
+                    User user = new User(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetInt32(4));
+                    return user;
+                }
             }
             catch (Exception ex)
             {
@@ -70,7 +77,7 @@ namespace RestaurantOldies.dataAccess
             try
             {
                 dBConnect = new DBConnect();
-                string query = "select * from `" + typeof(Item).Name.ToLower() + "`";
+                string query = "select * from `" + typeof(User).Name.ToLower() + "`";
 
                 dBConnect.Open();
                 MySqlCommand command = new MySqlCommand(query, dBConnect.connection);

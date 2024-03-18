@@ -15,16 +15,20 @@ namespace RestaurantOldies.dataAccess
             try
             {
                 dBConnect = new DBConnect();
-                string query = "select * from `" + typeof(Item).Name.ToLower() + "` where id = @id";
+                string query = "select * from `" + typeof(Item).Name.ToLower() + "` where `id` = @id";
+                Console.WriteLine(query);
 
                 dBConnect.Open();
                 MySqlCommand command = new MySqlCommand(query, dBConnect.connection);
+                command.Parameters.AddWithValue("@id", id);
                 MySqlDataReader reader = command.ExecuteReader();
 
-                command.Parameters.AddWithValue("@id", id);
+                if (reader.Read())
+                {
+                    Item item = new Item(reader.GetInt32(0), reader.GetString(1), reader.GetInt32(2), reader.GetInt32(3));
+                    return item;
+                }
 
-                Item item = new Item(reader.GetInt32(0), reader.GetString(1), reader.GetInt32(2), reader.GetInt32(3));
-                return item;
             }
             catch (Exception ex)
             {
