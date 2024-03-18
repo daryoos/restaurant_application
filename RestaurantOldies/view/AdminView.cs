@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using RestaurantOldies.dataAccess;
 using RestaurantOldies.model;
+using OfficeOpenXml;
+using System.IO;
 
 namespace RestaurantOldies.view
 {
@@ -17,6 +19,8 @@ namespace RestaurantOldies.view
         List<Item> items;
         ItemDAO itemDAO;
         UserDAO userDAO;
+        BillDAO billDAO;
+        OrderDAO orderDAO;
         public string username;
         public string password;
         public string name;
@@ -25,6 +29,8 @@ namespace RestaurantOldies.view
         {
             itemDAO = new ItemDAO();
             userDAO = new UserDAO();
+            billDAO = new BillDAO();
+            orderDAO = new OrderDAO();
             InitializeComponent();
             InitializeItemGridView();
         }
@@ -110,6 +116,70 @@ namespace RestaurantOldies.view
         private void passwordTextBox_TextChanged(object sender, EventArgs e)
         {
             
+        }
+
+        private void firstDateTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lastDateTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void searchBillButton_Click(object sender, EventArgs e)
+        {
+            using (var excelPackage = new ExcelPackage())
+            {
+                var worksheet = excelPackage.Workbook.Worksheets.Add("BillReport");
+
+                worksheet.Cells[1, 1].Value = "Bill Id";
+                worksheet.Cells[1, 2].Value = "Bill Total Cost";
+                worksheet.Cells[1, 3].Value = "Bill Status";
+                worksheet.Cells[1, 4].Value = "Bill Date";
+
+                int row = 2;
+
+                string startDate = firstDateTextBox.Text + " 00:00:00";
+                string endDate = lastDateTextBox.Text + " 00:00:00";
+
+                List<Bill> bills = billDAO.GetAllBetweenDates(startDate, endDate);
+                Dictionary<int, int> itemCount = new Dictionary<int, int>();
+                foreach (Item item in items)
+                {
+                    itemCount.Add(item.id, 0);
+                }
+
+                foreach (Bill bill in bills)
+                {
+                    worksheet.Cells[row, 1].Value = bill.id;
+                    worksheet.Cells[row, 2].Value = bill.totalCost;
+                    worksheet.Cells[row, 3].Value = bill.status;
+                    worksheet.Cells[row, 4].Value = bill.date;
+
+                    row++;
+
+                    List<Order> orders = orderDAO.GetByBillId(bill.id);
+                    foreach (Order order in orders)
+                    {
+                        itemCount[order.itemId] += order.quantity;
+                    }
+                }
+                Item mostWantedItem = itemDAO.GetById(itemCount.Aggregate((x, y) => x.Value > y.Value ? x : y).Key);
+                worksheet.Cells[1, 8].Value = "Item Id";
+                worksheet.Cells[1, 9].Value = "Item Name";
+                worksheet.Cells[1, 10].Value = "Item Price";
+                worksheet.Cells[1, 11].Value = "Item Orders";
+
+                worksheet.Cells[2, 8].Value = mostWantedItem.id;
+                worksheet.Cells[2, 9].Value = mostWantedItem.name;
+                worksheet.Cells[2, 10].Value = mostWantedItem.price;
+                worksheet.Cells[2, 11].Value = itemCount.Aggregate((x, y) => x.Value > y.Value ? x : y).Value;
+
+                FileInfo excelFile = new FileInfo("BillReport.xlsx");
+                excelPackage.SaveAs(excelFile);
+            }
         }
     }
 }

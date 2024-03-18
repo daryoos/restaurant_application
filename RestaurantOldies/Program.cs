@@ -27,6 +27,17 @@ namespace RestaurantOldies
             
 
             /*
+            string startDate = "2024-02-18 20:20:05";
+            string endDate = "2024-04-18 20:20:05";
+            BillDAO billDAO = new BillDAO();
+            List<Bill> bills = billDAO.GetAllBetweenDates(startDate, endDate);
+            foreach (Bill bill in bills )
+            {
+                Console.WriteLine(bill.id);
+            }
+            */
+
+            /*
             BillDAO billDAO = new BillDAO();
             List<Bill> bills = billDAO.GetAll();
             foreach (Bill bill in bills )

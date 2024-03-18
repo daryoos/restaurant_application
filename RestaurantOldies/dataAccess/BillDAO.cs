@@ -10,6 +10,38 @@ namespace RestaurantOldies.dataAccess
 {
     public class BillDAO : AbstractDAO<Bill>
     {
+        public List<Bill> GetAllBetweenDates(string startDate, string endDate)
+        {
+            try
+            {
+                dBConnect = new DBConnect();
+                string query = "select * from `" + typeof(Bill).Name.ToLower() + "` where `date` >= '" + startDate + "' and `date` <= '" + endDate + "'";
+                Console.WriteLine(query);
+
+                dBConnect.Open();
+                MySqlCommand command = new MySqlCommand(query, dBConnect.connection);
+                MySqlDataReader reader = command.ExecuteReader();
+
+                List<Bill> bills = new List<Bill>();
+                while (reader.Read())
+                {
+                    Bill bill = new Bill(reader.GetInt32(0), reader.GetFloat(1), reader.GetString(2), reader.GetMySqlDateTime(3).ToString());
+                    bills.Add(bill);
+                }
+                return bills;
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                dBConnect.Close();
+            }
+            return null;
+        }
+
         public override void Update(Bill bill)
         {
             StringBuilder query = new StringBuilder("update `bill` set `totalCost` = ");

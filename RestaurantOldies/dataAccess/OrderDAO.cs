@@ -27,7 +27,7 @@ namespace RestaurantOldies.dataAccess
                 List<Order> orders = new List<Order>();
                 while (reader.Read())
                 {
-                    Order order = new Order(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2));
+                    Order order = new Order(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2), reader.GetInt32(3));
                     orders.Add(order);
                 }
                 return orders;
@@ -58,7 +58,7 @@ namespace RestaurantOldies.dataAccess
 
                 if (reader.Read())
                 {
-                    Order order = new Order(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2));
+                    Order order = new Order(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2), reader.GetInt32(3));
                     return order;
                 }
 
@@ -88,7 +88,7 @@ namespace RestaurantOldies.dataAccess
                 List<Order> orders = new List<Order>();
                 while (reader.Read())
                 {
-                    Order order = new Order(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2));
+                    Order order = new Order(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2), reader.GetInt32(3));
                     orders.Add(order);
                 }
                 return orders;

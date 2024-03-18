@@ -131,10 +131,6 @@ namespace RestaurantOldies.view
             {
                 items.Add(itemDAO.GetById(order.itemId));
             }
-            foreach (Item item in items)
-            {
-                Console.WriteLine(item.id);
-            }
             Console.WriteLine("Bill item view");
             BillItemView billItemView = new BillItemView(items);
             billItemView.Show();

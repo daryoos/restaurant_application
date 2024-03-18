@@ -44,6 +44,9 @@
             this.passwordTextBox = new System.Windows.Forms.TextBox();
             this.nameTextBox = new System.Windows.Forms.TextBox();
             this.createEmployeeAccountButton = new System.Windows.Forms.Button();
+            this.firstDateTextBox = new System.Windows.Forms.TextBox();
+            this.lastDateTextBox = new System.Windows.Forms.TextBox();
+            this.searchBillButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.itemGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.itemBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -184,11 +187,42 @@
             this.createEmployeeAccountButton.UseVisualStyleBackColor = true;
             this.createEmployeeAccountButton.Click += new System.EventHandler(this.createEmployeeAccountButton_Click);
             // 
+            // firstDateTextBox
+            // 
+            this.firstDateTextBox.Location = new System.Drawing.Point(882, 296);
+            this.firstDateTextBox.Name = "firstDateTextBox";
+            this.firstDateTextBox.Size = new System.Drawing.Size(100, 22);
+            this.firstDateTextBox.TabIndex = 10;
+            this.firstDateTextBox.Text = "start";
+            this.firstDateTextBox.TextChanged += new System.EventHandler(this.firstDateTextBox_TextChanged);
+            // 
+            // lastDateTextBox
+            // 
+            this.lastDateTextBox.Location = new System.Drawing.Point(1037, 295);
+            this.lastDateTextBox.Name = "lastDateTextBox";
+            this.lastDateTextBox.Size = new System.Drawing.Size(100, 22);
+            this.lastDateTextBox.TabIndex = 11;
+            this.lastDateTextBox.Text = "end";
+            this.lastDateTextBox.TextChanged += new System.EventHandler(this.lastDateTextBox_TextChanged);
+            // 
+            // searchBillButton
+            // 
+            this.searchBillButton.Location = new System.Drawing.Point(882, 341);
+            this.searchBillButton.Name = "searchBillButton";
+            this.searchBillButton.Size = new System.Drawing.Size(75, 23);
+            this.searchBillButton.TabIndex = 12;
+            this.searchBillButton.Text = "search";
+            this.searchBillButton.UseVisualStyleBackColor = true;
+            this.searchBillButton.Click += new System.EventHandler(this.searchBillButton_Click);
+            // 
             // AdminView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1311, 526);
+            this.Controls.Add(this.searchBillButton);
+            this.Controls.Add(this.lastDateTextBox);
+            this.Controls.Add(this.firstDateTextBox);
             this.Controls.Add(this.createEmployeeAccountButton);
             this.Controls.Add(this.nameTextBox);
             this.Controls.Add(this.passwordTextBox);
@@ -224,5 +258,8 @@
         private System.Windows.Forms.TextBox passwordTextBox;
         private System.Windows.Forms.TextBox nameTextBox;
         private System.Windows.Forms.Button createEmployeeAccountButton;
+        private System.Windows.Forms.TextBox firstDateTextBox;
+        private System.Windows.Forms.TextBox lastDateTextBox;
+        private System.Windows.Forms.Button searchBillButton;
     }
 }
